@@ -4,37 +4,36 @@ import json
 
 def main_reply_keyboard():
     builder = ReplyKeyboardBuilder()
-    builder.button(text="🛒 Список магазинов")
-    builder.button(text="➕ Добавить товар")
-    builder.button(text="🎲 Монетка (решить судьбу)")
-    builder.button(text="⚙️ Настройки (будет позже)")
+    builder.button(text="🛒 Shop List")
+    builder.button(text="➕ Add a product")
+    builder.button(text="🎲 Decide the fate")
     builder.adjust(1)
     return builder.as_markup(resize_keyboard=True, one_time_keyboard=True)
 
 
-def market_list():
+def shop_list():
     builder = InlineKeyboardBuilder()
     with open("Base.json", "r", encoding="utf-8") as file:
         data = json.load(file)
     for markets in data:
         builder.button(text=markets, callback_data=markets)
-    builder.button(text="🔙 Назад в главное меню", callback_data="backToMenu")
-    builder.button(text="➕ Добавить магазин", callback_data="addMarket")
+    builder.button(text="🔙 Back to main menu", callback_data="backToMenu")
+    builder.button(text="➕ Add a shop", callback_data="addMarket")
     builder.adjust(2, 2)
     return builder.as_markup()
 
 
-def item_list(market_item):
+def item_list(shop_item):
     builder = InlineKeyboardBuilder()
-    for item in market_item:
+    for item in shop_item:
 
         if item["bought"]:
             builder.button(text="✅" + item["name"], callback_data=item["name"])
         else:
             builder.button(text="▫️" + item["name"], callback_data=item["name"])
 
-    builder.button(text="🔙 Назад к списку магазинов", callback_data="backToMarketList")
-    builder.button(text="➕ Добавить товар", callback_data="addItem")
-    builder.button(text="♻️ Очистить купленные товары", callback_data="DeleteItem")
+    builder.button(text="🔙 Back to shop list", callback_data="backToShopList")
+    builder.button(text="➕ Add a pruduct", callback_data="addItem")
+    builder.button(text="♻️ Clear a bought item", callback_data="DeleteItem")
     builder.adjust(2, 2)
     return builder.as_markup()
