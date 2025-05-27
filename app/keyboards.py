@@ -2,7 +2,6 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder
 import json
 
 
-
 def main_reply_keyboard():
     builder = ReplyKeyboardBuilder()
     builder.button(text="🛒 Список магазинов")
