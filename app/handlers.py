@@ -50,6 +50,7 @@ async def shop_menu_handler(callback: types.CallbackQuery, state: FSMContext):
         data = json.load(file)
     match callback.data:
         case "backToMenu":
+            await callback.message.delete()
             await state.clear()
             await state.set_state(ChoiceState.MainMenu)
             await callback.message.answer(text="🤓. Select command",
@@ -60,6 +61,7 @@ async def shop_menu_handler(callback: types.CallbackQuery, state: FSMContext):
             await callback.message.answer(text="Enter a new shop name ( if you wand add more than one shop, you can"
                                                "enter them names separated by commas")
         case _:
+            await callback.message.delete()
             await state.clear()
             await state.set_state(ChoiceState.ItemHandle)
             await state.update_data(shop=callback.data)
@@ -87,6 +89,7 @@ async def item_menu_handler(callback: types.CallbackQuery, state: FSMContext):
             await callback.message.answer(text="Enter a new item name ( if you wand add more than one item, you can"
                                                "enter them names separated by commas")
         case "backToShopList":
+            await callback.message.delete()
             await state.clear()
             await state.set_state(ChoiceState.ShopItems)
             await callback.message.answer(text="Choose a shop", reply_markup=kb.shop_list())
@@ -102,6 +105,7 @@ async def item_menu_handler(callback: types.CallbackQuery, state: FSMContext):
 @router.callback_query(ChoiceState.AddItem_SelectShop)
 async def add_items_select_shop(callback: types.CallbackQuery, state: FSMContext):
     await callback.answer(callback.data)
+    await callback.message.delete()
     await state.clear()
     await state.update_data(shop=callback.data)
     await state.set_state(ChoiceState.AddItem_InputName)
@@ -111,6 +115,7 @@ async def add_items_select_shop(callback: types.CallbackQuery, state: FSMContext
 
 @router.message(ChoiceState.AddItem_InputName)
 async def add_items_input_name(message: types.Message, state: FSMContext):
+    await message.delete()
     with open("app/Base.json", "r", encoding="utf-8") as file:
         data = json.load(file)
     state_data = await state.get_data()
@@ -128,6 +133,7 @@ async def add_items_input_name(message: types.Message, state: FSMContext):
 
 @router.message(ChoiceState.AddShop_InputName)
 async def add_shop_input_name(message: types.Message, state: FSMContext):
+    await message.delete()
     with open("app/Base.json", "r", encoding="utf-8") as file:
         data = json.load(file)
     shops = message.text.split(",")
