@@ -40,8 +40,7 @@ async def main_menu_handler(message: types.Message, state: FSMContext):
             await state.set_state(ChoiceState.CoinFlip)
             await message.answer(text="Enter item name for decide fate of this item")
         case _:
-            await message.answer(text="Wrong comand! Try again!",
-                                 reply_markup=kb.main_reply_keyboard())
+            await message.answer(text="Wrong comand! Try again!",reply_markup=kb.main_reply_keyboard())
 
 
 @router.callback_query(ChoiceState.ShopItems)
@@ -160,4 +159,3 @@ async def coin_flip(message: types.Message, state: FSMContext):
     await state.set_state(ChoiceState.MainMenu)
     await message.answer(text="🤓. Select command",
                          reply_markup=kb.main_reply_keyboard())
-
