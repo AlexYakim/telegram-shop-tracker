@@ -20,7 +20,7 @@ A Telegram bot to manage shopping lists categorized by stores. Supports adding, 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/telegram-shop-tracker.git
+   git clone https://github.com/AlexYakim/telegram-shop-tracker.git
    cd telegram-shop-tracker
 
 2. Install dependencies:
