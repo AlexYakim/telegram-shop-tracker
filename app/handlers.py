@@ -54,7 +54,7 @@ async def shop_menu_handler(callback: types.CallbackQuery, state: FSMContext):
             await state.set_state(ChoiceState.MainMenu)
             await callback.message.answer(text="🤓. Select command",
                                           reply_markup=kb.main_reply_keyboard())
-        case "addMarket":
+        case "addShop":
             await state.clear()
             await state.set_state(ChoiceState.AddShop_InputName)
             await callback.message.answer(text="Enter a new shop name ( if you wand add more than one shop, you can"
